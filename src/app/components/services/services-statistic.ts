@@ -59,7 +59,6 @@ export class ServiceStatistic {
 		let threeDaysAgo = new Date();
 
 		threeDaysAgo.setDate(threeDaysAgo.getDate() - DAYS_AGO_COUNT);
-
 		_.forEach(orders, (order) => {
 			_.forEach(order.services, (service) => {
 				if (order.timestamp >= threeDaysAgo) {
@@ -73,8 +72,13 @@ export class ServiceStatistic {
 		}
 
 		let saleStatistic = _.sortBy(this.arrayHelper.compressArray(saleStatisticUngrouped), [ 'count' ]).reverse();
+		const currentServiceStatistic = _.find(saleStatistic, ['value', selectedService]);
 
-		return saleStatistic[0].value == selectedService && saleStatistic[0].count > MINIMUM_SOLD_COUNT_REQUIRED;
+		if (typeof(currentServiceStatistic) === 'undefined') {
+			return false;
+		}
+
+		return currentServiceStatistic.count > MINIMUM_SOLD_COUNT_REQUIRED;
 	}
 
     /**
@@ -95,8 +99,13 @@ export class ServiceStatistic {
 		}
 
 		let saleStatistic = _.sortBy(this.arrayHelper.compressArray(saleStatisticUngrouped), [ 'count' ]).reverse();
+		const currentServiceStatistic = _.find(saleStatistic, ['value', selectedService]);
+		
+		if (typeof(currentServiceStatistic) === 'undefined') {
+			return false;
+		}
 
-		return saleStatistic[0].value == selectedService;
+		return saleStatistic[0].value >= currentServiceStatistic.value;
 	}
 
     /**
