@@ -1,0 +1,46 @@
+<div class="container">
+  <div><b>Состав заказа:</b></div>
+  <table class="table table-bordered">
+    <tbody>
+      <tr *ngFor="let service of selectedServices">
+        <td>{{service}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div>
+    <b>Исполнитель</b>: {{ selectedSpecialist.nickname }}</div>
+  <div class="md-form">
+    <input text-success="asd" mdbInputDirective data-error="Введите число от 1 до n" placeholder="Укажите колличество часов"
+      (keyup)="onKeyHoursCount($event)" pattern="\d*" min="0" type="number" [(ngModel)]="hoursCount" class="form-control">
+    <label class="">Колличество часов</label>
+  </div>
+  <div class="mt-3">Сумма заказа: {{total}}</div>
+
+  <div>
+    <a (click)="goBack()" class="btn btn-primary waves-light mt-4" mdbWavesEffect>Назад</a>
+    <button *ngIf="total > 0 && hoursCount > 0" type="button" class="btn btn-success mt-4" (click)="style.show();" mdbWavesEffect>Оформить заказ</button>
+  </div>
+</div>
+
+<div mdbModal (onHide)="placeOrder()" #style="mdb-modal" class="modal fade" id="centralModalSuccess" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-notify modal-success" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <p class="heading lead">Это успех!</p>
+      </div>
+      <div class="modal-body">
+        <div class="text-center">
+          <i class="fa fa-check fa-4x mb-3 animated rotateIn"></i>
+          <p>Ваш заказ отправлен тыжпрограммисту и теперь он не умрет от голода. Ожидайте звонка!</p>
+          <div>
+            <img src="https://www.barista-ltd.ru/components/com_jshopping/files/img_products/thumb_lapsha-doshirak-griby-90gr.jpg" />
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <a type="button" class="btn btn-primary waves-light" (click)="style.hide();" mdbWavesEffect>Перейти на главную страницу</a>
+      </div>
+    </div>
+  </div>
+</div>

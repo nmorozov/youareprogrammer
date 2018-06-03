@@ -1,0 +1,60 @@
+<div class="container">
+  <h1>Список услуг</h1>
+  <div class="d-flex flex-wrap">
+    <div *ngFor="let service of services" class="card mr-2 mt-3">
+      <div class="card-body">
+        <h4 class="card-title">{{service}}</h4>
+        <div class="text-center">
+          <button type="button" class="btn btn-primary" (click)="setSelectedService(service); style.show()" mdbWavesEffect>Подробнее</button>
+          <a *ngIf="selectedServices.indexOf(service) === -1" (click)="selectService(service)" class="btn btn-primary waves-light"
+            mdbWavesEffect>Выбрать</a>
+          <a *ngIf="selectedServices.indexOf(service) !== -1" (click)="selectService(service)" class="btn btn-success waves-light"
+            mdbWavesEffect>Выбран</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div  class="text-center mt-3">
+    <a [class.disabled]="selectedServices.length < 1" routerLink="/specialists" class="btn btn-primary waves-light" mdbWavesEffect>Далее</a>
+  </div>
+</div>
+
+<div mdbModal #style="mdb-modal" (onShow)="onShow()" class="modal fade" id="centralModalSuccess" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div *ngIf="detailServiceServiceInfo" class="modal-dialog modal-notify modal-success" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <p class="heading lead">{{detailServiceServiceInfo.name}}</p>
+      </div>
+      <div class="modal-body">
+        <div class="text-center">
+            <div class="d-flex mb-10">
+                <h4>
+                  <span *ngIf="detailServiceServiceInfo.saleLeader" class="badge badge-default mr-2">В тренде</span>
+                  <span *ngIf="detailServiceServiceInfo.serviceOfYear" class="badge badge-primary mr-2">Услуга года</span>
+                  <span *ngIf="detailServiceServiceInfo.useless" class="badge badge-success mr-2">Бесполезна</span>
+                </h4>
+            </div>
+          
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th>Услугу оказали</th>
+                    <th>Кол-во специалистов</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{{detailServiceServiceInfo.doneCount}}</td>
+                    <td>{{detailServiceServiceInfo.specialistsCount}}</td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <a type="button" class="btn btn-primary waves-light" (click)="style.hide();" mdbWavesEffect>Назад</a>
+      </div>
+    </div>
+  </div>
+</div>

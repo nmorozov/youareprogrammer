@@ -1,0 +1,35 @@
+<div class="container" *ngIf="specialists">
+  <div *ngIf="specialists.length < 1">
+    <div class="text-center">
+      <img src="https://vignette.wikia.nocookie.net/warframe/images/0/0e/%D0%9A%D0%BE%D1%82_%D0%BF%D0%BB%D0%B0%D1%87%D0%B5%D1%82.jpg/revision/latest?cb=20160430202947&path-prefix=ru"
+        class="img-thumbnail" alt="Тыжпрограммист">
+      <div>Таких мастеров у нас нет....</div>
+    </div>
+  </div>
+
+  <div *ngIf="specialists.length > 0" class="container">
+    <h3 class="text-center">Выберите тыжпрограммиста</h3>
+    <div class="d-flex flex-wrap justify-content-start">
+      <div *ngFor="let specialist of specialists" class="col-md-4">
+        <div class="card mt-3">
+          <div class="view overlay hm-white-slight waves-light" mdbWavesEffect>
+            <img src="{{specialist.photo}}" class="img-fluid" alt="{{specialist.nickname}}">
+            <a>
+              <div class="mask"></div>
+            </a>
+          </div>
+          <div class="card-body">
+            <h4 class="card-title">{{specialist.nickname}}</h4>
+            <!--Text-->
+            <p class="card-text">{{specialist.description}}</p>
+            <div>Стоимость часа: {{specialist.hour_cost}} руб.</div>
+            <div>Рейтинг: {{specialist.rating}}/5</div>
+            <a (click)="goToCheckout(specialist)" class="btn btn-unique waves-light" mdbWavesEffect>Выбрать</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <a (click)="goBack()" class="btn btn-primary waves-light mt-4" mdbWavesEffect>Назад</a>
+</div>
