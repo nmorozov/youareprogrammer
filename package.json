@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "electron-build": "electron -r babel-register ."
+    "electron-build": "ng build --prod && electron -r babel-register ."
   },
   "private": true,
   "dependencies": {
